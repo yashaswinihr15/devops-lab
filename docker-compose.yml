@@ -1,0 +1,18 @@
+services:
+  app:
+    build: ./app
+    container_name: flask_app
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - app
